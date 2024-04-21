@@ -9,7 +9,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 echo "Please enter DB password:"
-read -s mysql_root_password
+read -s jai
 
 VALIDATE(){
    if [ $1 -ne 0 ]
@@ -43,10 +43,10 @@ VALIDATE $? "Starting MySQL Server"
 # VALIDATE $? "Setting up root password"
 
 #Below code will be useful for idempotent nature
-mysql -h db.jai-awsdevops.online -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
+mysql -h db.jai-awsdevops.online -uroot -p${jai} -e 'show databases;' &>>$LOGFILE
 if [ $? -ne 0 ]
 then
-    mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOGFILE
+    mysql_secure_installation --set-root-pass ${jai} &>>$LOGFILE
     VALIDATE $? "MySQL Root password Setup"
 else
     echo -e "MySQL Root password is already setup...$Y SKIPPING $N"
