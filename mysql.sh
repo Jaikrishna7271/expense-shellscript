@@ -43,10 +43,10 @@ VALIDATE $? "Starting MySQL Server"
 # VALIDATE $? "Setting up root password"
 
 #Below code will be useful for idempotent nature
-mysql -h db.jai-awsdevops.online -uroot -p${Jaya@1423} -e 'show databases;' &>>$LOGFILE
+mysql -h db.jai-awsdevops.online -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
 if [ $? -ne 0 ]
 then
-    mysql_secure_installation --set-root-pass ${Jaya@1423} &>>$LOGFILE
+    mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOGFILE
     VALIDATE $? "MySQL Root password Setup"
 else
     echo -e "MySQL Root password is already setup...$Y SKIPPING $N"
